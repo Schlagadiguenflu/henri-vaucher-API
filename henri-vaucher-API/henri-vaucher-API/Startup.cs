@@ -1,16 +1,11 @@
+using henri_vaucher_API.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace henri_vaucher_API
 {
@@ -32,6 +27,10 @@ namespace henri_vaucher_API
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "henri_vaucher_API", Version = "v1" });
             });
+
+            // Added context with PostgreSQL
+            services.AddDbContext<HenriVaucherContext>(
+                opt => opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
