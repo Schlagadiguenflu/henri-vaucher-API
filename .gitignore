@@ -274,6 +274,4 @@ __pycache__/
 
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore
 
-src/IdentityServerAspNetIdentity/appsettings.Development.json
-
-henri-vaucher-API/henri-vaucher-API/appsettings.Development.json
+appsettings.Development.json
