@@ -28,5 +28,7 @@ namespace henri_vaucher_API.Models
         public string From { get; set; }
         [StringLength(200)]
         public string Remarks { get; set; }
+        // Base 64
+        public string File { get; set; }
     }
 }
