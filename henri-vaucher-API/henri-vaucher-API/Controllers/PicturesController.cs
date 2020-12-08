@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using henri_vaucher_API.Models;
+using henri_vaucher_API.Utility;
+using henri_vaucher_API.Utility.PaginationParameters;
+using System.Text.Json;
 
 namespace henri_vaucher_API.Controllers
 {
@@ -22,10 +25,27 @@ namespace henri_vaucher_API.Controllers
 
         // GET: api/Pictures
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Picture>>> GetPictures()
+        public async Task<ActionResult<IEnumerable<Picture>>> GetPictures([FromQuery]PictureParameters pictureParameters)
         {
-            return await _context.Pictures.AsNoTracking().ToListAsync();
+            Pagination<Picture> pictures = await Pagination<Picture>
+                .ToPagedListAsync(_context.Pictures.AsNoTracking().OrderBy(p => p.PictureId),
+                pictureParameters.PageNumber,
+                pictureParameters.PageSize);
+
+            var metadata = new
+            {
+                pictures.TotalCount,
+                pictures.PageSize,
+                pictures.CurrentPage,
+                pictures.TotalPages,
+                pictures.HasNext,
+                pictures.HasPrevious
+            };
+            Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
+
+            return pictures;
         }
+
 
         // GET: api/Pictures/5
         [HttpGet("{id}")]
