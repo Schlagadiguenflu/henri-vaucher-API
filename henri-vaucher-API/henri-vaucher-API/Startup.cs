@@ -32,6 +32,7 @@ namespace henri_vaucher_API
                 {
                     policy.WithOrigins(Configuration["URLClientJavascript"])
                         .AllowAnyHeader()
+                        .WithExposedHeaders("X-Pagination")
                         .AllowAnyMethod();
                 });
             });

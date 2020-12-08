@@ -41,6 +41,7 @@ namespace henri_vaucher_API.Controllers
                 pictures.HasNext,
                 pictures.HasPrevious
             };
+
             Response.Headers.Add("X-Pagination", JsonSerializer.Serialize(metadata));
 
             return pictures;
