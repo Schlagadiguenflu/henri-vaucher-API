@@ -24,14 +24,14 @@ namespace henri_vaucher_API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Picture>>> GetPictures()
         {
-            return await _context.Pictures.ToListAsync();
+            return await _context.Pictures.AsNoTracking().ToListAsync();
         }
 
         // GET: api/Pictures/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Picture>> GetPicture(int id)
         {
-            var picture = await _context.Pictures.FindAsync(id);
+            var picture = await _context.Pictures.AsNoTracking().Where(p => p.PictureId == id).SingleOrDefaultAsync();
 
             if (picture == null)
             {
@@ -102,6 +102,84 @@ namespace henri_vaucher_API.Controllers
         private bool PictureExists(int id)
         {
             return _context.Pictures.Any(e => e.PictureId == id);
+        }
+
+        /// <summary>
+        /// Get the next picture from current one
+        /// </summary>
+        // GET: api/Pictures/next/5
+        [HttpGet("next/{id}")]
+        public async Task<ActionResult<Picture>> GetPictureNext(int id)
+        {
+            id++;
+            int lastPictureId = await _context.Pictures
+                .AsNoTracking()
+                .OrderBy(p => p.PictureId)
+                .Select(p => p.PictureId)
+                .LastOrDefaultAsync();
+
+            Picture picture = null;
+            bool etat = true;
+            while (lastPictureId >= id && etat)
+            {
+                picture = await _context.Pictures
+                    .Where(p => p.PictureId == id)
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync();
+                if (picture == null)
+                {
+                    id++;
+                }
+                else
+                {
+                    etat = false;
+                }
+            }
+            if (lastPictureId < id)
+            {
+                picture = await _context.Pictures
+                    .AsNoTracking()
+                    .FirstOrDefaultAsync();
+            }
+
+            return picture;
+        }
+
+        /// <summary>
+        /// Get the previous picture from current one
+        /// </summary>
+        // GET: api/Pictures/previous/5
+        [HttpGet("previous/{id}")]
+        public async Task<ActionResult<Picture>> GetPicturePrevious(int id)
+        {
+            id--;
+
+            Picture picture = null;
+            bool etat = true;
+            while (id >= 1 && etat)
+            {
+                picture = await _context.Pictures
+                    .Where(p => p.PictureId == id)
+                    .AsNoTracking()
+                    .SingleOrDefaultAsync();
+                if (picture == null)
+                {
+                    id--;
+                }
+                else
+                {
+                    etat = false;
+                }
+            }
+            if (id < 1)
+            {
+                picture = await _context.Pictures
+                    .AsNoTracking()
+                    .OrderBy(p => p.PictureId)
+                    .LastOrDefaultAsync();
+            }
+
+            return picture;
         }
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using henri_vaucher_API.Models;
@@ -9,9 +10,10 @@ using henri_vaucher_API.Models;
 namespace henri_vaucher_API.Migrations
 {
     [DbContext(typeof(HenriVaucherContext))]
-    partial class HenriVaucherContextModelSnapshot : ModelSnapshot
+    [Migration("20201207130450_ModelChanges")]
+    partial class ModelChanges
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

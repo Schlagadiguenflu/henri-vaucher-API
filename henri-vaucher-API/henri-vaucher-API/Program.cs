@@ -11,6 +11,7 @@ namespace henri_vaucher_API
 {
     public class Program
     {
+#pragma warning disable CS1591
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
@@ -21,6 +22,8 @@ namespace henri_vaucher_API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.UseUrls("http://0.0.0.0:5010");
                 });
     }
+#pragma warning restore CS1591
 }
