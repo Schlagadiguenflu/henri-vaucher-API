@@ -202,5 +202,20 @@ namespace henri_vaucher_API.Controllers
 
             return picture;
         }
+
+        /// <summary>
+        /// Get x random pictures
+        /// </summary>
+        // GET: api/Pictures/random/5
+        [HttpGet("random/{number}")]
+        public async Task<ActionResult<IEnumerable<Picture>>> GetPictureRandom(int number)
+        {
+            Random rand = new Random();
+            int skip = rand.Next(0, await _context.Pictures.CountAsync() - number);
+
+            var pictures = await _context.Pictures.Skip(skip).Take(number).ToListAsync();
+
+            return pictures;
+        }
     }
 }
