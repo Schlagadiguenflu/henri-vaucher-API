@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using henri_vaucher_API.Models;
 using System.Text.Json;
 using System.IO;
-using System;
 
 namespace XUnitTest_henri_vaucher
 {
@@ -50,7 +49,25 @@ namespace XUnitTest_henri_vaucher
             Assert.True(items.Count > 0);
         }
 
+        // Tester la pagination /api/pictures
+        public async Task Get_WhenCalled_PaginationAsync()
+        {
+            // Préparation de l'appel à l'API
+            HttpClient client = new HttpClient();
 
+            // Act
+            Stream streamTask = await client.GetStreamAsync("http://localhost:5010/" + "api/Pictures?pagenumber=1&pageSize=6");
+            List<Picture> pictures = await JsonSerializer.DeserializeAsync<List<Picture>>(streamTask,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                }
+            );
+
+            // Assert
+            var items = Assert.IsType<List<Picture>>(pictures);
+            Assert.Equal(items.Count, 6);
+        }
 
         // Tester le code NotFound /api/pictures/0
         [Fact]
