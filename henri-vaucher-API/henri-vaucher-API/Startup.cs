@@ -37,6 +37,7 @@ namespace henri_vaucher_API
                 });
             });
 
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
