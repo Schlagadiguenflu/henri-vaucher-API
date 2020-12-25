@@ -46,7 +46,7 @@ namespace henri_vaucher_API.Controllers
                                 Picture picture = new Picture();
                                 try
                                 {
-                                    picture.Title = reader.GetValue(0).ToString();
+                                    picture.Title = reader.GetString(0);
                                 }
                                 catch (Exception)
                                 {
@@ -54,7 +54,11 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.Date = reader.GetValue(1).ToString();
+                                    var temp = reader.GetValue(1);
+                                    if (temp != null)
+                                    {
+                                        picture.Date = temp.ToString();
+                                    }                                   
                                 }
                                 catch (Exception)
                                 {
@@ -62,7 +66,11 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.Number = int.Parse(reader.GetValue(2).ToString());
+                                    var temp = reader.GetValue(2);
+                                    if (temp != null)
+                                    {
+                                        picture.Number = int.Parse(temp.ToString());
+                                    }                                 
                                 }
                                 catch (Exception)
                                 {
@@ -70,7 +78,7 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.Signature = reader.GetValue(3).ToString();
+                                    picture.Signature = reader.GetString(3);
                                 }
                                 catch (Exception)
                                 {
@@ -78,7 +86,7 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.PositionSignature = reader.GetValue(4).ToString();
+                                    picture.PositionSignature = reader.GetString(4);
                                 }
                                 catch (Exception)
                                 {
@@ -86,7 +94,12 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.Height = float.Parse(reader.GetValue(5).ToString());
+                                    var temp = reader.GetValue(5);
+                                    if (temp != null)
+                                    {
+                                        picture.Height = float.Parse(temp.ToString());
+                                    }
+
                                 }
                                 catch (Exception)
                                 {
@@ -94,7 +107,11 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.Width = float.Parse(reader.GetValue(6).ToString());
+                                    var temp = reader.GetValue(6);
+                                    if (temp != null)
+                                    {
+                                        picture.Width = float.Parse(temp.ToString());
+                                    }
                                 }
                                 catch (Exception)
                                 {
@@ -102,7 +119,11 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.Surface = float.Parse(reader.GetValue(7).ToString());
+                                    var temp = reader.GetValue(7);
+                                    if (temp != null)
+                                    {
+                                        picture.Surface = float.Parse(temp.ToString());
+                                    }
                                 }
                                 catch (Exception)
                                 {
@@ -110,7 +131,7 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.Support = reader.GetValue(8).ToString();
+                                    picture.Support = reader.GetString(8);
                                 }
                                 catch (Exception)
                                 {
@@ -118,7 +139,7 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.Drawing = reader.GetValue(9).ToString();
+                                    picture.Drawing = reader.GetString(9);
                                 }
                                 catch (Exception)
                                 {
@@ -126,7 +147,7 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.DominantTones = reader.GetValue(10).ToString();
+                                    picture.DominantTones = reader.GetString(10);
                                 }
                                 catch (Exception)
                                 {
@@ -134,7 +155,7 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.Owner = reader.GetValue(11).ToString();
+                                    picture.Owner = reader.GetString(11);
                                 }
                                 catch (Exception)
                                 {
@@ -142,7 +163,7 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.From = reader.GetValue(12).ToString();
+                                    picture.From = reader.GetString(12);
                                 }
                                 catch (Exception)
                                 {
@@ -150,7 +171,7 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.Remarks = reader.GetValue(13).ToString();
+                                    picture.Remarks = reader.GetString(13);
                                 }
                                 catch (Exception)
                                 {
@@ -158,7 +179,7 @@ namespace henri_vaucher_API.Controllers
                                 }
                                 try
                                 {
-                                    picture.File = reader.GetValue(14).ToString();
+                                    picture.File = reader.GetString(14);
                                 }
                                 catch (Exception)
                                 {
