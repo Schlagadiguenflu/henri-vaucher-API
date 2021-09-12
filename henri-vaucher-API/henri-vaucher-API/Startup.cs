@@ -30,7 +30,7 @@ namespace henri_vaucher_API
                 // this defines a CORS policy called "default"
                 options.AddPolicy("default", policy =>
                 {
-                    policy.WithOrigins(Configuration["URLClientJavascript"])
+                    policy.WithOrigins(Configuration["URLClientJavascript"], "https://v2.henri-vaucher.ch")
                         .AllowAnyHeader()
                         .WithExposedHeaders("X-Pagination")
                         .AllowAnyMethod();
